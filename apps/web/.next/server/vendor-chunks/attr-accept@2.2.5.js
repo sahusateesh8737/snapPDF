@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "vendor-chunks/attr-accept@2.2.5";
+exports.ids = ["vendor-chunks/attr-accept@2.2.5"];
+exports.modules = {
+
+/***/ "(ssr)/../../node_modules/.pnpm/attr-accept@2.2.5/node_modules/attr-accept/dist/es/index.js":
+/*!********************************************************************************************!*\
+  !*** ../../node_modules/.pnpm/attr-accept@2.2.5/node_modules/attr-accept/dist/es/index.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+eval("\nexports.__esModule = true;\nexports[\"default\"] = function(file, acceptedFiles) {\n    if (file && acceptedFiles) {\n        var acceptedFilesArray = Array.isArray(acceptedFiles) ? acceptedFiles : acceptedFiles.split(\",\");\n        if (acceptedFilesArray.length === 0) {\n            return true;\n        }\n        var fileName = file.name || \"\";\n        var mimeType = (file.type || \"\").toLowerCase();\n        var baseMimeType = mimeType.replace(/\\/.*$/, \"\");\n        return acceptedFilesArray.some(function(type) {\n            var validType = type.trim().toLowerCase();\n            if (validType.charAt(0) === \".\") {\n                return fileName.toLowerCase().endsWith(validType);\n            } else if (validType.endsWith(\"/*\")) {\n                // This is something like a image/* mime type\n                return baseMimeType === validType.replace(/\\/.*$/, \"\");\n            }\n            return mimeType === validType;\n        });\n    }\n    return true;\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi4vLi4vbm9kZV9tb2R1bGVzLy5wbnBtL2F0dHItYWNjZXB0QDIuMi41L25vZGVfbW9kdWxlcy9hdHRyLWFjY2VwdC9kaXN0L2VzL2luZGV4LmpzIiwibWFwcGluZ3MiOiJBQUFhO0FBRWJBLGtCQUFrQixHQUFHO0FBRXJCQSxrQkFBZSxHQUFHLFNBQVVHLElBQUksRUFBRUMsYUFBYTtJQUM3QyxJQUFJRCxRQUFRQyxlQUFlO1FBQ3pCLElBQUlDLHFCQUFxQkMsTUFBTUMsT0FBTyxDQUFDSCxpQkFBaUJBLGdCQUFnQkEsY0FBY0ksS0FBSyxDQUFDO1FBRTVGLElBQUlILG1CQUFtQkksTUFBTSxLQUFLLEdBQUc7WUFDbkMsT0FBTztRQUNUO1FBRUEsSUFBSUMsV0FBV1AsS0FBS1EsSUFBSSxJQUFJO1FBQzVCLElBQUlDLFdBQVcsQ0FBQ1QsS0FBS1UsSUFBSSxJQUFJLEVBQUMsRUFBR0MsV0FBVztRQUM1QyxJQUFJQyxlQUFlSCxTQUFTSSxPQUFPLENBQUMsU0FBUztRQUM3QyxPQUFPWCxtQkFBbUJZLElBQUksQ0FBQyxTQUFVSixJQUFJO1lBQzNDLElBQUlLLFlBQVlMLEtBQUtNLElBQUksR0FBR0wsV0FBVztZQUV2QyxJQUFJSSxVQUFVRSxNQUFNLENBQUMsT0FBTyxLQUFLO2dCQUMvQixPQUFPVixTQUFTSSxXQUFXLEdBQUdPLFFBQVEsQ0FBQ0g7WUFDekMsT0FBTyxJQUFJQSxVQUFVRyxRQUFRLENBQUMsT0FBTztnQkFDbkMsNkNBQTZDO2dCQUM3QyxPQUFPTixpQkFBaUJHLFVBQVVGLE9BQU8sQ0FBQyxTQUFTO1lBQ3JEO1lBRUEsT0FBT0osYUFBYU07UUFDdEI7SUFDRjtJQUVBLE9BQU87QUFDVCIsInNvdXJjZXMiOlsid2VicGFjazovL3dlYi8uLi8uLi9ub2RlX21vZHVsZXMvLnBucG0vYXR0ci1hY2NlcHRAMi4yLjUvbm9kZV9tb2R1bGVzL2F0dHItYWNjZXB0L2Rpc3QvZXMvaW5kZXguanM/YTlmOCJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBzdHJpY3RcIjtcblxuZXhwb3J0cy5fX2VzTW9kdWxlID0gdHJ1ZTtcblxuZXhwb3J0cy5kZWZhdWx0ID0gZnVuY3Rpb24gKGZpbGUsIGFjY2VwdGVkRmlsZXMpIHtcbiAgaWYgKGZpbGUgJiYgYWNjZXB0ZWRGaWxlcykge1xuICAgIHZhciBhY2NlcHRlZEZpbGVzQXJyYXkgPSBBcnJheS5pc0FycmF5KGFjY2VwdGVkRmlsZXMpID8gYWNjZXB0ZWRGaWxlcyA6IGFjY2VwdGVkRmlsZXMuc3BsaXQoJywnKTtcblxuICAgIGlmIChhY2NlcHRlZEZpbGVzQXJyYXkubGVuZ3RoID09PSAwKSB7XG4gICAgICByZXR1cm4gdHJ1ZTtcbiAgICB9XG5cbiAgICB2YXIgZmlsZU5hbWUgPSBmaWxlLm5hbWUgfHwgJyc7XG4gICAgdmFyIG1pbWVUeXBlID0gKGZpbGUudHlwZSB8fCAnJykudG9Mb3dlckNhc2UoKTtcbiAgICB2YXIgYmFzZU1pbWVUeXBlID0gbWltZVR5cGUucmVwbGFjZSgvXFwvLiokLywgJycpO1xuICAgIHJldHVybiBhY2NlcHRlZEZpbGVzQXJyYXkuc29tZShmdW5jdGlvbiAodHlwZSkge1xuICAgICAgdmFyIHZhbGlkVHlwZSA9IHR5cGUudHJpbSgpLnRvTG93ZXJDYXNlKCk7XG5cbiAgICAgIGlmICh2YWxpZFR5cGUuY2hhckF0KDApID09PSAnLicpIHtcbiAgICAgICAgcmV0dXJuIGZpbGVOYW1lLnRvTG93ZXJDYXNlKCkuZW5kc1dpdGgodmFsaWRUeXBlKTtcbiAgICAgIH0gZWxzZSBpZiAodmFsaWRUeXBlLmVuZHNXaXRoKCcvKicpKSB7XG4gICAgICAgIC8vIFRoaXMgaXMgc29tZXRoaW5nIGxpa2UgYSBpbWFnZS8qIG1pbWUgdHlwZVxuICAgICAgICByZXR1cm4gYmFzZU1pbWVUeXBlID09PSB2YWxpZFR5cGUucmVwbGFjZSgvXFwvLiokLywgJycpO1xuICAgICAgfVxuXG4gICAgICByZXR1cm4gbWltZVR5cGUgPT09IHZhbGlkVHlwZTtcbiAgICB9KTtcbiAgfVxuXG4gIHJldHVybiB0cnVlO1xufTsiXSwibmFtZXMiOlsiZXhwb3J0cyIsIl9fZXNNb2R1bGUiLCJkZWZhdWx0IiwiZmlsZSIsImFjY2VwdGVkRmlsZXMiLCJhY2NlcHRlZEZpbGVzQXJyYXkiLCJBcnJheSIsImlzQXJyYXkiLCJzcGxpdCIsImxlbmd0aCIsImZpbGVOYW1lIiwibmFtZSIsIm1pbWVUeXBlIiwidHlwZSIsInRvTG93ZXJDYXNlIiwiYmFzZU1pbWVUeXBlIiwicmVwbGFjZSIsInNvbWUiLCJ2YWxpZFR5cGUiLCJ0cmltIiwiY2hhckF0IiwiZW5kc1dpdGgiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(ssr)/../../node_modules/.pnpm/attr-accept@2.2.5/node_modules/attr-accept/dist/es/index.js\n");
+
+/***/ })
+
+};
+;
