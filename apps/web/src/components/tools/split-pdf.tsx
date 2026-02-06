@@ -5,23 +5,29 @@ import { useDropzone } from "react-dropzone";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
 import { Button } from "@/components/ui/button";
-import { FileUp, Trash2, ArrowDown, Loader2, FileText, Scissors, CheckCircle, RefreshCcw, Download, Layers } from "lucide-react";
+import { FileUp, Trash2, ArrowDown, Loader2, FileText, Scissors, CheckCircle, RefreshCcw, Download, Layers, Grid2X2, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Document, Page, pdfjs } from 'react-pdf';
+
+// Configure PDF worker
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export default function SplitPdfTool() {
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState<number>(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [successInfo, setSuccessInfo] = useState<{ url: string; filename: string } | null>(null);
-  const [splitMode, setSplitMode] = useState<'extract_all' | 'custom_range'>('extract_all');
+  const [splitMode, setSplitMode] = useState<'extract_all' | 'custom_range' | 'visual_select'>('extract_all');
   const [customRange, setCustomRange] = useState("");
+  const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       const selectedFile = acceptedFiles[0];
       setFile(selectedFile);
+      setSuccessInfo(null);
       
       // Load PDF to get page count
       try {
@@ -49,6 +55,17 @@ export default function SplitPdfTool() {
     setSuccessInfo(null);
     setCustomRange("");
     setSplitMode('extract_all');
+    setSelectedPages(new Set());
+  };
+
+  const togglePageSelection = (pageIndex: number) => {
+    const newSelected = new Set(selectedPages);
+    if (newSelected.has(pageIndex)) {
+      newSelected.delete(pageIndex);
+    } else {
+      newSelected.add(pageIndex);
+    }
+    setSelectedPages(newSelected);
   };
 
   const handleSplit = async () => {
@@ -74,33 +91,26 @@ export default function SplitPdfTool() {
         const zipContent = await zip.generateAsync({ type: "blob" });
         const url = URL.createObjectURL(zipContent);
         const filename = `snapPDF_split_all.zip`;
-        
-        // Auto download
         triggerDownload(url, filename);
         setSuccessInfo({ url, filename });
 
-      } else {
-        // Custom Range Logic
-        // Expecting format like "1-3, 5, 7"
+      } else if (splitMode === 'custom_range') {
         const pagesToExtract = parsePageRange(customRange, totalPages);
-        
         if (pagesToExtract.length === 0) {
-          alert("Invalid page range.");
-          setIsProcessing(false);
-          return;
+            alert("Invalid page range.");
+            setIsProcessing(false);
+            return;
         }
+        await extractPages(pdfDoc, pagesToExtract, 'snapPDF_split_custom.pdf');
 
-        const newPdf = await PDFDocument.create();
-        const copiedPages = await newPdf.copyPages(pdfDoc, pagesToExtract);
-        copiedPages.forEach(page => newPdf.addPage(page));
-
-        const pdfBytes = await newPdf.save();
-        const blob = new Blob([pdfBytes], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const filename = `snapPDF_split_custom.pdf`;
-
-        triggerDownload(url, filename);
-        setSuccessInfo({ url, filename });
+      } else if (splitMode === 'visual_select') {
+        const pagesToExtract = Array.from(selectedPages).sort((a, b) => a - b);
+        if (pagesToExtract.length === 0) {
+            alert("Please select at least one page.");
+            setIsProcessing(false);
+            return;
+        }
+        await extractPages(pdfDoc, pagesToExtract, 'snapPDF_selected_pages.pdf');
       }
 
     } catch (error) {
@@ -111,6 +121,19 @@ export default function SplitPdfTool() {
     }
   };
 
+  const extractPages = async (sourceDoc: PDFDocument, pageIndices: number[], filename: string) => {
+    const newPdf = await PDFDocument.create();
+    const copiedPages = await newPdf.copyPages(sourceDoc, pageIndices);
+    copiedPages.forEach(page => newPdf.addPage(page));
+
+    const pdfBytes = await newPdf.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    
+    triggerDownload(url, filename);
+    setSuccessInfo({ url, filename });
+  };
+
   const triggerDownload = (url: string, filename: string) => {
     const link = document.createElement("a");
     link.href = url;
@@ -118,7 +141,6 @@ export default function SplitPdfTool() {
     link.click();
   };
 
-  // Helper to parse "1-3, 5" into [0, 1, 2, 4] 0-indexed
   const parsePageRange = (rangeStr: string, maxPages: number): number[] => {
     const pages = new Set<number>();
     const parts = rangeStr.split(',').map(p => p.trim());
@@ -142,7 +164,7 @@ export default function SplitPdfTool() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-12 relative">
+    <div className="w-full max-w-5xl mx-auto space-y-12 relative">
        {/* Success Modal */}
        <AnimatePresence>
         {successInfo && (
@@ -265,7 +287,7 @@ export default function SplitPdfTool() {
               </div>
 
               {/* Configure Split */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 {/* Option 1: Extract All */}
                 <div 
@@ -276,10 +298,10 @@ export default function SplitPdfTool() {
                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${splitMode === 'extract_all' ? 'border-brand-500' : 'border-zinc-600'}`}>
                             {splitMode === 'extract_all' && <div className="w-3 h-3 bg-brand-500 rounded-full" />}
                         </div>
-                        <h3 className="text-white font-semibold">Extract All Pages</h3>
+                        <h3 className="text-white font-semibold">Extract All</h3>
                     </div>
                     <p className="text-slate-400 text-sm pl-10">
-                        Every page of this PDF will be saved as a separate PDF file. You will download a ZIP archive.
+                        Save every page as a separate PDF file (ZIP download).
                     </p>
                 </div>
 
@@ -292,17 +314,16 @@ export default function SplitPdfTool() {
                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${splitMode === 'custom_range' ? 'border-brand-500' : 'border-zinc-600'}`}>
                             {splitMode === 'custom_range' && <div className="w-3 h-3 bg-brand-500 rounded-full" />}
                         </div>
-                        <h3 className="text-white font-semibold">Extract Custom Range</h3>
+                        <h3 className="text-white font-semibold">Custom Range</h3>
                     </div>
                     <p className="text-slate-400 text-sm pl-10 mb-4">
-                        Extract specific pages into a new PDF document.
+                        Type page numbers to extract (e.g. 1-5, 8).
                     </p>
                     
                     {splitMode === 'custom_range' && (
                         <div className="pl-10">
-                            <Label className="text-xs uppercase text-slate-500 font-bold tracking-wider">Page Range</Label>
                             <Input 
-                                placeholder={`e.g. 1-5, 8, 11-13 (Max ${pageCount})`}
+                                placeholder="e.g. 1-5, 8"
                                 value={customRange}
                                 onChange={(e) => setCustomRange(e.target.value)}
                                 className="mt-2 bg-zinc-900 border-zinc-700 focus:border-brand-500 text-white"
@@ -311,14 +332,88 @@ export default function SplitPdfTool() {
                     )}
                 </div>
 
+                {/* Option 3: Select Pages */}
+                <div 
+                    onClick={() => setSplitMode('visual_select')}
+                    className={`cursor-pointer border-2 rounded-2xl p-6 transition-all ${splitMode === 'visual_select' ? 'border-brand-500 bg-brand-500/5' : 'border-zinc-800 hover:border-zinc-700 bg-zinc-950/50'}`}
+                >
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${splitMode === 'visual_select' ? 'border-brand-500' : 'border-zinc-600'}`}>
+                            {splitMode === 'visual_select' && <div className="w-3 h-3 bg-brand-500 rounded-full" />}
+                        </div>
+                        <h3 className="text-white font-semibold">Select Pages</h3>
+                    </div>
+                    <p className="text-slate-400 text-sm pl-10">
+                        Click thumbnails to select specific pages to extract.
+                    </p>
+                </div>
+
               </div>
+
+              {/* Visual Selection Grid */}
+              {splitMode === 'visual_select' && file && (
+                <div className="bg-zinc-950/50 rounded-2xl border border-zinc-800 p-6">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-white font-semibold">Select Pages to Extract</h3>
+                        <span className="text-sm text-brand-400 font-medium">{selectedPages.size} pages selected</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-[500px] overflow-y-auto p-2">
+                        <Document
+                            file={file}
+                            className="contents"
+                            loading={
+                                <div className="col-span-full h-32 flex items-center justify-center text-slate-500">
+                                    <Loader2 className="animate-spin mr-2" /> Loading thumbnails...
+                                </div>
+                            }
+                        >
+                            {Array.from(new Array(pageCount), (el, index) => (
+                                <div 
+                                    key={`page_${index + 1}`}
+                                    onClick={() => togglePageSelection(index)}
+                                    className={`
+                                        relative aspect-[210/297] rounded-lg overflow-hidden cursor-pointer border-2 transition-all group
+                                        ${selectedPages.has(index) ? 'border-brand-500 ring-2 ring-brand-500/20' : 'border-zinc-700 hover:border-slate-500'}
+                                    `}
+                                >
+                                    <Page 
+                                        pageNumber={index + 1} 
+                                        width={150} 
+                                        renderTextLayer={false}
+                                        renderAnnotationLayer={false}
+                                        className="w-full h-full object-contain bg-white"
+                                    />
+                                    
+                                    {/* Overlay */}
+                                    <div className={`
+                                        absolute inset-0 transition-colors flex items-center justify-center
+                                        ${selectedPages.has(index) ? 'bg-brand-500/20' : 'group-hover:bg-white/10'}
+                                    `}>
+                                        {selectedPages.has(index) && (
+                                            <div className="bg-brand-500 rounded-full p-1 shadow-lg transform scale-100 transition-transform">
+                                                <Check size={16} className="text-white" />
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Page Number */}
+                                    <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-medium backdrop-blur-sm">
+                                        {index + 1}
+                                    </div>
+                                </div>
+                            ))}
+                        </Document>
+                    </div>
+                </div>
+              )}
 
               {/* Action */}
               <div className="flex justify-center pt-4">
                 <Button
                     size="lg"
                     onClick={handleSplit}
-                    disabled={isProcessing || (splitMode === 'custom_range' && !customRange)}
+                    disabled={isProcessing || (splitMode === 'custom_range' && !customRange) || (splitMode === 'visual_select' && selectedPages.size === 0)}
                     className="h-14 px-10 text-lg font-bold rounded-full bg-brand-600 hover:bg-brand-500 text-white shadow-xl shadow-brand-900/20"
                 >
                     {isProcessing ? (

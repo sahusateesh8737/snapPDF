@@ -1,5 +1,6 @@
 {
+  "/split-pdf/page": "app/split-pdf/page.js",
+  "/merge-pdf/page": "app/merge-pdf/page.js",
   "/page": "app/page.js",
-  "/tools/page": "app/tools/page.js",
-  "/merge-pdf/page": "app/merge-pdf/page.js"
+  "/tools/page": "app/tools/page.js"
 }
