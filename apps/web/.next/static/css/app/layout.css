@@ -703,6 +703,12 @@ video {
 .top-20 {
   top: 5rem;
 }
+.right-4 {
+  right: 1rem;
+}
+.top-4 {
+  top: 1rem;
+}
 .-z-10 {
   z-index: -10;
 }
@@ -742,6 +748,9 @@ video {
 }
 .mt-4 {
   margin-top: 1rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 .\!block {
   display: block !important;
@@ -945,6 +954,9 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 .resize {
   resize: both;
@@ -1175,6 +1187,18 @@ video {
 .bg-zinc-900\/50 {
   background-color: rgb(24 24 27 / 0.5);
 }
+.bg-blue-600\/5 {
+  background-color: rgb(37 99 235 / 0.05);
+}
+.bg-brand-500\/5 {
+  background-color: rgb(229 57 53 / 0.05);
+}
+.bg-zinc-900\/80 {
+  background-color: rgb(24 24 27 / 0.8);
+}
+.bg-blue-600\/10 {
+  background-color: rgb(37 99 235 / 0.1);
+}
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -1271,6 +1295,10 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .pb-20 {
   padding-bottom: 5rem;
@@ -1419,6 +1447,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(113 113 122 / var(--tw-text-opacity, 1));
 }
+.text-zinc-600 {
+  --tw-text-opacity: 1;
+  color: rgb(82 82 91 / var(--tw-text-opacity, 1));
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -1430,6 +1462,9 @@ video {
 }
 .opacity-50 {
   opacity: 0.5;
+}
+.opacity-60 {
+  opacity: 0.6;
 }
 .mix-blend-multiply {
   mix-blend-mode: multiply;
@@ -1489,6 +1524,14 @@ video {
 }
 .blur-\[96px\] {
   --tw-blur: blur(96px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.blur-\[1px\] {
+  --tw-blur: blur(1px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.blur-\[120px\] {
+  --tw-blur: blur(120px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .invert {
@@ -1857,6 +1900,10 @@ video {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:px-8 {

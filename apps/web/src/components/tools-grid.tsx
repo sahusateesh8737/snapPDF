@@ -44,47 +44,47 @@ const categories = [
     title: "Organize PDF",
     tools: [
       { icon: <Merge size={24} />, title: "Merge PDF", desc: "Combine multiple PDFs into one unified document.", href: "/merge-pdf" },
-      { icon: <Scissors size={24} />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion." },
-      { icon: <Trash2 size={24} />, title: "Remove Pages", desc: "Select and remove pages from your PDF document." },
-      { icon: <Layout size={24} />, title: "Organize PDF", desc: "Sort pages of your PDF file however you like." },
+      { icon: <Scissors size={24} />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", comingSoon: true },
+      { icon: <Trash2 size={24} />, title: "Remove Pages", desc: "Select and remove pages from your PDF document.", comingSoon: true },
+      { icon: <Layout size={24} />, title: "Organize PDF", desc: "Sort pages of your PDF file however you like.", comingSoon: true },
     ]
   },
   {
     title: "Optimize PDF",
     tools: [
-      { icon: <Zap size={24} />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality." },
-      { icon: <PenTool size={24} />, title: "Repair PDF", desc: "Recover data from a corrupted or damaged PDF file." },
+      { icon: <Zap size={24} />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", comingSoon: true },
+      { icon: <PenTool size={24} />, title: "Repair PDF", desc: "Recover data from a corrupted or damaged PDF file.", comingSoon: true },
     ]
   },
   {
     title: "Convert to PDF",
     tools: [
-      { icon: <Image size={24} />, title: "JPG to PDF", desc: "Convert JPG images to PDF in seconds." },
-      { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF." },
-      { icon: <Presentation size={24} />, title: "PowerPoint to PDF", desc: "Make PPT and PPTX slideshows easy to view by converting them to PDF." },
-      { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF." },
-      { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents." },
+      { icon: <Image size={24} />, title: "JPG to PDF", desc: "Convert JPG images to PDF in seconds.", comingSoon: true },
+      { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF.", comingSoon: true },
+      { icon: <Presentation size={24} />, title: "PowerPoint to PDF", desc: "Make PPT and PPTX slideshows easy to view by converting them to PDF.", comingSoon: true },
+      { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF.", comingSoon: true },
+      { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents.", comingSoon: true },
     ]
   },
   {
     title: "Convert from PDF",
     tools: [
-      { icon: <Image size={24} />, title: "PDF to JPG", desc: "Extract images from your PDF or save each page as a separate image." },
-      { icon: <FileText size={24} />, title: "PDF to Word", desc: "Convert your PDF to WORD documents with incredible accuracy." },
-      { icon: <Presentation size={24} />, title: "PDF to PowerPoint", desc: "Convert your PDF to POWERPOINT presentations." },
-      { icon: <FileSpreadsheet size={24} />, title: "PDF to Excel", desc: "Convert your PDF to EXCEL spreadsheets." },
+      { icon: <Image size={24} />, title: "PDF to JPG", desc: "Extract images from your PDF or save each page as a separate image.", comingSoon: true },
+      { icon: <FileText size={24} />, title: "PDF to Word", desc: "Convert your PDF to WORD documents with incredible accuracy.", comingSoon: true },
+      { icon: <Presentation size={24} />, title: "PDF to PowerPoint", desc: "Convert your PDF to POWERPOINT presentations.", comingSoon: true },
+      { icon: <FileSpreadsheet size={24} />, title: "PDF to Excel", desc: "Convert your PDF to EXCEL spreadsheets.", comingSoon: true },
     ]
   },
   {
     title: "Edit & Security",
     tools: [
-      { icon: <RotateCw size={24} />, title: "Rotate PDF", desc: "Rotate your PDF files as you want. Rotate multiple PDF at same time." },
-      { icon: <Hash size={24} />, title: "Add Page Numbers", desc: "Add page numbers into PDFs with ease." },
-      { icon: <Stamp size={24} />, title: "Add Watermark", desc: "Stamp an image or text over your PDF in seconds." },
-      { icon: <Lock size={24} />, title: "Protect PDF", desc: "Encrypt your PDF with a password." },
-      { icon: <Unlock size={24} />, title: "Unlock PDF", desc: "Remove PDF password security, so you can use your PDF freely." },
-      { icon: <Search size={24} />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR." },
-      { icon: <FileCheck size={24} />, title: "Sign PDF", desc: "Sign yourself or request electronic signatures from others." },
+      { icon: <RotateCw size={24} />, title: "Rotate PDF", desc: "Rotate your PDF files as you want. Rotate multiple PDF at same time.", comingSoon: true },
+      { icon: <Hash size={24} />, title: "Add Page Numbers", desc: "Add page numbers into PDFs with ease.", comingSoon: true },
+      { icon: <Stamp size={24} />, title: "Add Watermark", desc: "Stamp an image or text over your PDF in seconds.", comingSoon: true },
+      { icon: <Lock size={24} />, title: "Protect PDF", desc: "Encrypt your PDF with a password.", comingSoon: true },
+      { icon: <Unlock size={24} />, title: "Unlock PDF", desc: "Remove PDF password security, so you can use your PDF freely.", comingSoon: true },
+      { icon: <Search size={24} />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", comingSoon: true },
+      { icon: <FileCheck size={24} />, title: "Sign PDF", desc: "Sign yourself or request electronic signatures from others.", comingSoon: true },
     ]
   }
 ];
@@ -131,6 +131,7 @@ export function ToolsGrid() {
                           title={tool.title}
                           description={tool.desc}
                           variant={variant as any}
+                          comingSoon={(tool as any).comingSoon}
                           className="h-full"
                         />
                       </Link>

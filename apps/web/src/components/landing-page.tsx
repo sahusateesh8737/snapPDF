@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "@/components/ui/feature-card";
-import { FileUp, Search, Zap, Shield, Merge, Scissors, Repeat } from "lucide-react";
+import { FileUp, Search, Zap, Shield, Merge, Scissors, Repeat, MousePointerClick, Cpu, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -77,11 +77,11 @@ export default function LandingPage() {
         >
           {[
             { icon: <Merge />, title: "Merge PDF", desc: "Combine multiple PDFs into one unified document.", variant: "red", href: "/merge-pdf" },
-            { icon: <Scissors />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", variant: "blue", href: "/split-pdf" },
-            { icon: <Zap />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", variant: "green", href: "/compress-pdf" },
-            { icon: <Repeat />, title: "Convert PDF", desc: "Convert your PDFs to Word, Excel, PowerPoint reliably.", variant: "orange", href: "/convert-pdf" },
-            { icon: <Shield />, title: "Protect PDF", desc: "Encrypt your PDF with a password to keep data confidential.", variant: "default", href: "/protect-pdf" },
-            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf" }
+            { icon: <Scissors />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", variant: "blue", href: "/split-pdf", comingSoon: true },
+            { icon: <Zap />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", variant: "green", href: "/compress-pdf", comingSoon: true },
+            { icon: <Repeat />, title: "Convert PDF", desc: "Convert your PDFs to Word, Excel, PowerPoint reliably.", variant: "orange", href: "/convert-pdf", comingSoon: true },
+            { icon: <Shield />, title: "Protect PDF", desc: "Encrypt your PDF with a password to keep data confidential.", variant: "default", href: "/protect-pdf", comingSoon: true },
+            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf", comingSoon: true }
           ].map((feature, idx) => (
              <motion.div key={idx} variants={itemVariants}>
                <Link href={feature.href ?? "#"}>
@@ -90,6 +90,7 @@ export default function LandingPage() {
                   title={feature.title}
                   description={feature.desc}
                   variant={feature.variant as any}
+                  comingSoon={feature.comingSoon}
                   className="h-full"
                  />
                </Link>
@@ -98,30 +99,87 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Upload/CTA Section */}
+      {/* How It Works Section */}
       <section className="py-24 bg-zinc-900 relative overflow-hidden">
-         {/* Decoration Circles */}
-         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-         <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+         {/* Animated Decoration Circles */}
+         <motion.div 
+           animate={{ 
+             scale: [1, 1.2, 1],
+             opacity: [0.1, 0.2, 0.1],
+           }}
+           transition={{ 
+             duration: 8,
+             repeat: Infinity,
+             ease: "easeInOut" 
+           }}
+           className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" 
+         />
+         <motion.div 
+            animate={{ 
+             scale: [1, 1.5, 1],
+             opacity: [0.1, 0.2, 0.1],
+           }}
+           transition={{ 
+             duration: 10,
+             repeat: Infinity,
+             ease: "easeInOut",
+             delay: 1
+           }}
+           className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" 
+         />
          
-         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Ready to optimize your documents?</h2>
-           <p className="text-slate-400 text-lg mb-10">Join thousands of users who trust SnapPDF for their daily document needs.</p>
-           
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
            <motion.div 
-             className="p-8 rounded-3xl border-2 border-dashed border-zinc-700 bg-zinc-800/50 backdrop-blur-sm hover:border-brand-500 hover:bg-zinc-800 transition-all cursor-pointer group"
-             whileHover={{ scale: 1.02 }}
-             whileTap={{ scale: 0.98 }}
+             className="text-center mb-16"
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, margin: "-100px" }}
+             variants={containerVariants}
            >
-             <div className="flex flex-col items-center justify-center gap-4">
-               <div className="w-16 h-16 rounded-full bg-zinc-700 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
-                 <FileUp className="text-slate-400 group-hover:text-white" size={32} />
-               </div>
-               <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">Drop PDF files here</h3>
-                  <p className="text-slate-400">or click to browse your computer</p>
-               </div>
-             </div>
+             <motion.h2 variants={itemVariants} className="text-3xl md:text-5xl font-bold text-white mb-6">
+               Why use SnapPDF?
+             </motion.h2>
+             <motion.p variants={itemVariants} className="text-slate-400 text-lg max-w-2xl mx-auto">
+               We prioritize your privacy and speed. Experience the next generation of PDF tools.
+             </motion.p>
+           </motion.div>
+
+           <motion.div 
+             className="grid grid-cols-1 md:grid-cols-3 gap-8"
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, margin: "-100px" }}
+             variants={containerVariants}
+           >
+             {[
+               { 
+                 icon: <MousePointerClick className="text-brand-500" size={32} />, 
+                 title: "Easy to Use", 
+                 desc: "Just drag & drop your files. Our intuitive interface makes editing PDFs a breeze." 
+               },
+               { 
+                 icon: <Cpu className="text-blue-500" size={32} />, 
+                 title: "Client-Side Processing", 
+                 desc: "Your files never leave your browser. We process everything locally using WebAssembly for maximum privacy." 
+               },
+               { 
+                 icon: <Download className="text-green-500" size={32} />, 
+                 title: "Instant Results", 
+                 desc: "No waiting for uploads or server queues. Get your edited PDF immediately." 
+               }
+             ].map((item, idx) => (
+                <motion.div 
+                  key={idx} 
+                  variants={itemVariants}
+                  className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700 p-8 rounded-2xl hover:bg-zinc-800 transition-colors"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-zinc-900/80 flex items-center justify-center mb-6 border border-zinc-800">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <p className="text-slate-400 leading-relaxed">{item.desc}</p>
+                </motion.div>
+             ))}
            </motion.div>
          </div>
       </section>
