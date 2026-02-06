@@ -23,6 +23,7 @@ import {
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragEndEvent
@@ -82,7 +83,7 @@ function SortablePage({ id, pageIndex, rotation, pageNumberDisplay, onRotate, on
         <div 
             {...attributes} 
             {...listeners}
-            className="absolute top-2 left-2 z-20 p-1.5 bg-black/60 rounded-md text-white cursor-grab active:cursor-grabbing hover:bg-black/80"
+            className="absolute top-2 left-2 z-20 p-1.5 bg-black/60 rounded-md text-white cursor-grab active:cursor-grabbing hover:bg-black/80 touch-none"
         >
             <GripHorizontal size={16} />
         </div>
@@ -140,6 +141,12 @@ export default function OrganizePdfTool() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
     })
   );
 
