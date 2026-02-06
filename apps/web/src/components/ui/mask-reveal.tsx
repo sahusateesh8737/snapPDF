@@ -1,24 +1,25 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 export const MaskReveal = () => {
   return (
     <motion.div
       className="fixed inset-0 z-50 bg-black flex items-center justify-center pointer-events-none"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ delay: 1.2, duration: 0.5, ease: "easeInOut" }}
+      initial={{ y: 0 }}
+      animate={{ y: "-100%" }}
+      transition={{
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 2.2 // Wait for star animation to finish + small pause
+      }}
     >
       <motion.div
-        initial={{ scale: 0, rotate: 0 }}
+        initial={{ scale: 0, rotate: 0, opacity: 0 }}
         animate={{ 
-          scale: [0, 1, 1, 150], 
-          rotate: [0, 45, 45, 45] 
+          scale: [0, 1, 1.5, 1], // Pulse effect
+          rotate: [0, 90, 90, 180],
+          opacity: [0, 1, 1, 0] // Fade out star before slide up
         }}
         transition={{
-          duration: 1.5,
-          times: [0, 0.4, 0.8, 1.5],
+          duration: 2,
+          times: [0, 0.4, 0.7, 1],
           ease: "easeInOut"
         }}
         className="text-white"
