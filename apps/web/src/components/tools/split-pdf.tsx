@@ -12,7 +12,10 @@ import { Label } from "@/components/ui/label";
 import { Document, Page, pdfjs } from 'react-pdf';
 
 // Configure PDF worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+// Configure PDF worker
+if (typeof window !== "undefined") {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+}
 
 export default function SplitPdfTool() {
   const [file, setFile] = useState<File | null>(null);
@@ -127,7 +130,7 @@ export default function SplitPdfTool() {
     copiedPages.forEach(page => newPdf.addPage(page));
 
     const pdfBytes = await newPdf.save();
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const blob = new Blob([pdfBytes as any], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     
     triggerDownload(url, filename);
@@ -281,7 +284,7 @@ export default function SplitPdfTool() {
                           <p className="text-slate-500 text-sm">{pageCount} Pages • {(file.size / 1024 / 1024).toFixed(2)} MB</p>
                       </div>
                   </div>
-                  <Button variant="ghost" size="icon" onClick={resetTool} className="text-slate-500 hover:text-red-400">
+                  <Button variant="ghost" size="sm" onClick={resetTool} className="text-slate-500 hover:text-red-400 h-10 w-10 p-0">
                       <Trash2 size={20} />
                   </Button>
               </div>
