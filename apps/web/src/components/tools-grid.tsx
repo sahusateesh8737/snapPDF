@@ -60,7 +60,7 @@ const categories = [
     title: "Convert to PDF",
     tools: [
       { icon: <Image size={24} />, title: "IMG to PDF", desc: "Convert JPG images to PDF in seconds.", href: "/jpg-to-pdf" },
-      { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF.", comingSoon: true },
+      { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF.", href: "/word-to-pdf" },
       { icon: <Presentation size={24} />, title: "PowerPoint to PDF", desc: "Make PPT and PPTX slideshows easy to view by converting them to PDF.", comingSoon: true },
       { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF.", comingSoon: true },
       { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents.", comingSoon: true },

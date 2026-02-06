@@ -1,26 +1,49 @@
-FROM node:18-slim AS base
+FROM node:18-slim
 
-# Install system dependencies for PDF processing
-# libreoffice: For converting documents to PDF
-# ghostscript: For reducing PDF size, etc.
-# poppler-utils: For pdfinfo, pdftoppm, etc.
+# Install LibreOffice and fonts
 RUN apt-get update && apt-get install -y \
     libreoffice \
-    ghostscript \
-    poppler-utils \
+    fonts-opensymbol \
+    hyphen-fr \
+    hyphen-de \
+    hyphen-en-us \
+    hyphen-it \
+    hyphen-ru \
+    fonts-dejavu \
+    fonts-dejavu-core \
+    fonts-dejavu-extra \
+    fonts-droid-fallback \
+    fonts-dustin \
+    fonts-f500 \
+    fonts-fanwood \
+    fonts-freefont-ttf \
+    fonts-liberation \
+    fonts-lmodern \
+    fonts-lyx \
+    fonts-sil-gentium \
+    fonts-texgyre \
+    fonts-tlwg-purisa \
     && rm -rf /var/lib/apt/lists/*
 
-FROM base AS builder
 WORKDIR /app
-# We would copy the monorepo context here, but for dev we might rely on volume mapping or 
-# just copying the built artifact. For a simple setup, lets assume we are building within the context.
-# Since this is a monorepo, a real production dockerfile is more complex (needs pruning).
-# For dev/skeleton purposes, we will stick to a simple node setup that assumes pre-built or live-reload.
 
-# NOTE: In a real monorepo 'turbo prune' is used. keeping it simple for dev scaffold.
+# Copy package files
+COPY package.json ./
 
+# Install dependencies
+RUN npm install
+
+# Copy source code
 COPY . .
-RUN npm install -g pnpm
-RUN pnpm install
 
-CMD ["pnpm", "run", "dev", "--filter", "api"]
+# Build TypeScript
+RUN npm run build
+
+# Create directories for upload/output
+RUN mkdir -p ../../obs/uploads && mkdir -p ../../obs/outputs
+
+# Expose port
+EXPOSE 4000
+
+# Start command
+CMD ["npm", "start"]
