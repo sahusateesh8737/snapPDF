@@ -23,27 +23,30 @@ RUN apt-get update && apt-get install -y \
     fonts-sil-gentium \
     fonts-texgyre \
     fonts-tlwg-purisa \
+    python3 \
     && rm -rf /var/lib/apt/lists/*
+
+# Install PNPM
+RUN npm install -g pnpm
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy source code
+# Copy all files
 COPY . .
 
-# Build TypeScript
-RUN npm run build
+# Install dependencies (frozen-lockfile ensures we use the exact versions)
+RUN pnpm install --frozen-lockfile
 
-# Create directories for upload/output
-RUN mkdir -p ../../obs/uploads && mkdir -p ../../obs/outputs
+# Build the API specifically
+# We filter to just the 'api' package and its dependencies
+RUN pnpm build --filter=api...
+
+# Create storage directories explicitly (if not created by build)
+RUN mkdir -p obs/uploads && mkdir -p obs/outputs
 
 # Expose port
 EXPOSE 4000
 
 # Start command
-CMD ["npm", "start"]
+# We use pnpm to start the api workspace
+CMD ["pnpm", "--filter", "api", "start"]
