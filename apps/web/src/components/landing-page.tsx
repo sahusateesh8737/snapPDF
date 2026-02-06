@@ -5,6 +5,7 @@ import { FeatureCard } from "@/components/ui/feature-card";
 import { FileUp, Search, Zap, Shield, Merge, Scissors, Repeat, MousePointerClick, Cpu, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { MaskReveal } from "@/components/ui/mask-reveal";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,6 +34,7 @@ const itemVariants = {
 export default function LandingPage() {
   return (
     <>
+      <MaskReveal />
       <section className="relative pt-32 pb-20 overflow-hidden bg-black">
         {/* Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
