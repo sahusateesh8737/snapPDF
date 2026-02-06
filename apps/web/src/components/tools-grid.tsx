@@ -44,7 +44,7 @@ const categories = [
     title: "Organize PDF",
     tools: [
       { icon: <Merge size={24} />, title: "Merge PDF", desc: "Combine multiple PDFs into one unified document.", href: "/merge-pdf" },
-      { icon: <Scissors size={24} />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", comingSoon: true },
+      { icon: <Scissors size={24} />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", href: "/split-pdf" },
       { icon: <Trash2 size={24} />, title: "Remove Pages", desc: "Select and remove pages from your PDF document.", comingSoon: true },
       { icon: <Layout size={24} />, title: "Organize PDF", desc: "Sort pages of your PDF file however you like.", comingSoon: true },
     ]

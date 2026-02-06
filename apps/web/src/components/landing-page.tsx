@@ -79,7 +79,7 @@ export default function LandingPage() {
         >
           {[
             { icon: <Merge />, title: "Merge PDF", desc: "Combine multiple PDFs into one unified document.", variant: "red", href: "/merge-pdf" },
-            { icon: <Scissors />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", variant: "blue", href: "/split-pdf", comingSoon: true },
+            { icon: <Scissors />, title: "Split PDF", desc: "Separate one page or a whole set for easy conversion.", variant: "blue", href: "/split-pdf" },
             { icon: <Zap />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", variant: "green", href: "/compress-pdf", comingSoon: true },
             { icon: <Repeat />, title: "Convert PDF", desc: "Convert your PDFs to Word, Excel, PowerPoint reliably.", variant: "orange", href: "/convert-pdf", comingSoon: true },
             { icon: <Shield />, title: "Protect PDF", desc: "Encrypt your PDF with a password to keep data confidential.", variant: "default", href: "/protect-pdf", comingSoon: true },

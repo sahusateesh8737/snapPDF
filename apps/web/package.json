@@ -33,6 +33,7 @@
     "devDependencies": {
         "@repo/config": "workspace:*",
         "@types/bcryptjs": "^3.0.0",
+        "@types/jszip": "^3.4.1",
         "@types/node": "^20.0.0",
         "@types/pg": "^8.16.0",
         "@types/react": "^18.0.0",
