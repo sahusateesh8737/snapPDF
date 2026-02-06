@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export const MaskReveal = () => {
   return (
     <motion.div
