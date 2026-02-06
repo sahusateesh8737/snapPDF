@@ -52,7 +52,7 @@ const categories = [
   {
     title: "Optimize PDF",
     tools: [
-      { icon: <Zap size={24} />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", comingSoon: true },
+      { icon: <Zap size={24} />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", href: "/compress-pdf" },
       { icon: <PenTool size={24} />, title: "Repair PDF", desc: "Recover data from a corrupted or damaged PDF file.", comingSoon: true },
     ]
   },
