@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const CONCURRENT_REQUESTS = 5;
 const TOTAL_REQUESTS = 10;
-const TARGET_URL = process.env.TARGET_URL || 'http://localhost:4000/convert/word-to-pdf';
+const TARGET_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/convert/word-to-pdf';
 const FILE_PATH = path.join(__dirname, 'test_input.docx');
 
 if (!fs.existsSync(FILE_PATH)) {
