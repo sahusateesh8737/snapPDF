@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { 
-  FileText, 
+  Presentation, 
   Loader2, 
   ArrowDown, 
   CheckCircle, 
@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function WordToPdfTool() {
+export default function PptToPdfTool() {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [successInfo, setSuccessInfo] = useState<{ url: string; filename: string } | null>(null);
@@ -31,8 +31,8 @@ export default function WordToPdfTool() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-        'application/msword': ['.doc']
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
+        'application/vnd.ms-powerpoint': ['.ppt']
     },
     maxFiles: 1,
     multiple: false
@@ -56,8 +56,8 @@ export default function WordToPdfTool() {
       // In development, prefer localhost:4000 unless overridden
       const isDev = process.env.NODE_ENV === "development";
       const apiUrl = isDev ? "http://localhost:4000" : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000");
-
-      const response = await fetch(`${apiUrl}/convert/word-to-pdf`, {
+      
+      const response = await fetch(`${apiUrl}/convert/ppt-to-pdf`, {
         method: "POST",
         body: formData,
       });
@@ -109,7 +109,7 @@ export default function WordToPdfTool() {
               </div>
               
               <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-white">Word Converted!</h2>
+                <h2 className="text-2xl font-bold text-white">PowerPoint Converted!</h2>
                 <p className="text-slate-400">
                   Your high-quality PDF is ready.
                 </p>
@@ -143,10 +143,10 @@ export default function WordToPdfTool() {
       {/* Hero Section */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-          Word to PDF
+          PowerPoint to PDF
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-          Pro-quality conversion using LibreOffice engine. Supports complex layouts.
+          Pro-quality conversion using LibreOffice engine. Preserves slides and animations as static pages.
         </p>
       </div>
 
@@ -171,21 +171,21 @@ export default function WordToPdfTool() {
             transition-all duration-300
             ${isDragActive ? "bg-brand-500 text-white" : "bg-zinc-800 text-brand-500 group-hover:bg-brand-500 group-hover:text-white group-hover:scale-110 shadow-xl"}
             `}>
-            <FileText size={40} strokeWidth={1.5} />
+            <Presentation size={40} strokeWidth={1.5} />
             </div>
             <div className="space-y-2">
             <p className="text-xl font-semibold text-white">
-                {isDragActive ? "Drop Word file here" : "Select Word file"}
+                {isDragActive ? "Drop PowerPoint file here" : "Select PowerPoint file"}
             </p>
             <p className="text-sm text-slate-500">
-                .docx or .doc files
+                .pptx or .ppt files
             </p>
             </div>
             <Button 
             size="lg"
             className="bg-brand-600 hover:bg-brand-500 text-white mt-4 pointer-events-none"
             >
-            Select Word File
+            Select PowerPoint File
             </Button>
           </div>
           {error && (
@@ -205,8 +205,8 @@ export default function WordToPdfTool() {
               {/* File Info */}
               <div className="flex items-center justify-between bg-zinc-950/50 p-4 rounded-xl border border-zinc-800">
                   <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-lg flex items-center justify-center">
-                          <FileText size={24} />
+                      <div className="w-12 h-12 bg-orange-500/10 text-orange-500 rounded-lg flex items-center justify-center">
+                          <Presentation size={24} />
                       </div>
                       <div>
                           <h3 className="text-white font-medium">{file.name}</h3>
