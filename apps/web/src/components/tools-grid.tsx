@@ -121,7 +121,7 @@ export function ToolsGrid() {
 
             return (
               <motion.div key={idx} variants={itemVariants} className="space-y-6">
-                <h2 className="text-2xl font-bold text-white pl-2 border-l-4 border-brand-500">{category.title}</h2>
+                <h2 className="text-2xl font-bold text-white pl-2 border-l-4 border-black-500">{category.title}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {category.tools.map((tool, tIdx) => (
                      <motion.div key={tIdx} whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>

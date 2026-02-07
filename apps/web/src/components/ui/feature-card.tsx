@@ -21,8 +21,8 @@ export const FeatureCard = ({ icon, title, description, className, variant = 'de
 
   return (
     <div className={`
-      relative p-8 bg-zinc-900 rounded-xl shadow-card border border-zinc-800 transition-all duration-300 group
-      ${comingSoon ? 'opacity-60 cursor-not-allowed' : 'hover:shadow-card-hover hover:border-zinc-700 hover:-translate-y-1 cursor-pointer'} 
+      relative p-8 bg-black/40 backdrop-blur-md rounded-xl shadow-lg border border-white transition-all duration-300 group
+      ${comingSoon ? 'opacity-60 cursor-not-allowed' : 'hover:bg-black/60 hover:shadow-xl hover:border-brand-500/20 hover:-translate-y-1 cursor-pointer'} 
       ${className}
     `}>
       {comingSoon && (
