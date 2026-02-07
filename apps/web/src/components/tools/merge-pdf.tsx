@@ -5,7 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "@/components/ui/feature-card"; 
-import { FileUp, Trash2, ArrowDown, Loader2, FileText, Merge, CheckCircle, RefreshCcw, Download } from "lucide-react";
+import { FileUp, Trash2, ArrowDown, Loader2, FileText, Merge, CheckCircle, RefreshCcw, Download, X, ChevronLeft } from "lucide-react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MergePdfTool() {
@@ -69,7 +70,17 @@ export default function MergePdfTool() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-12 relative">
+    <div className="w-full max-w-4xl mx-auto space-y-12 relative px-4">
+      {/* Back Button */}
+      <div className="absolute -top-16 left-0">
+        <Link href="/">
+          <Button variant="ghost" className="text-slate-400 hover:text-white gap-2 px-2">
+            <ChevronLeft size={20} />
+            Back to Tools
+          </Button>
+        </Link>
+      </div>
+
       {/* Success Modal */}
       <AnimatePresence>
         {successInfo && (
@@ -83,8 +94,15 @@ export default function MergePdfTool() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center"
+              className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center relative"
             >
+               <button 
+                onClick={resetTool}
+                className="absolute top-4 right-4 p-2 text-slate-500 hover:text-white hover:bg-zinc-800 rounded-full transition-colors"
+              >
+                <X size={20} />
+              </button>
+
               <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto text-green-500">
                 <CheckCircle size={48} />
               </div>
@@ -108,9 +126,9 @@ export default function MergePdfTool() {
                     </Button>
                 </a>
                 <Button 
-                    variant="outline" 
+                    variant="secondary" 
                     onClick={resetTool}
-                    className="w-full h-12 text-lg font-medium border-zinc-700 text-slate-300 hover:bg-zinc-800 hover:text-white gap-2"
+                    className="w-full h-12 text-lg font-medium bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700 gap-2"
                 >
                     <RefreshCcw size={20} />
                     Merge More PDFs

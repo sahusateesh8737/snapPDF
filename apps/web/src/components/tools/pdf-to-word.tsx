@@ -17,7 +17,7 @@ import {
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function WordToPdfTool() {
+export default function PdfToWordTool() {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [successInfo, setSuccessInfo] = useState<{ url: string; filename: string } | null>(null);
@@ -34,8 +34,7 @@ export default function WordToPdfTool() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-        'application/msword': ['.doc']
+        'application/pdf': ['.pdf']
     },
     maxFiles: 1,
     multiple: false
@@ -57,7 +56,7 @@ export default function WordToPdfTool() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
-      const response = await fetch(`${apiUrl}/convert/word-to-pdf`, {
+      const response = await fetch(`${apiUrl}/convert/pdf-to-word`, {
         method: "POST",
         body: formData,
       });
@@ -69,7 +68,7 @@ export default function WordToPdfTool() {
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
-      const filename = `snapPDF_converted.pdf`;
+      const filename = file.name.replace(/\.pdf$/i, '.docx');
 
       // Trigger download
       const link = document.createElement("a");
@@ -80,7 +79,7 @@ export default function WordToPdfTool() {
       setSuccessInfo({ url, filename });
 
     } catch (err: any) {
-      console.error("Error creating PDF:", err);
+      console.error("Error creating Word doc:", err);
       setError(err.message || "Failed to convert file. Please try again.");
     } finally {
       setIsProcessing(false);
@@ -126,9 +125,9 @@ export default function WordToPdfTool() {
               </div>
               
               <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-white">Word Converted!</h2>
+                <h2 className="text-2xl font-bold text-white">PDF Converted!</h2>
                 <p className="text-slate-400">
-                  Your high-quality PDF is ready.
+                  Your Word document is ready.
                 </p>
               </div>
 
@@ -160,10 +159,10 @@ export default function WordToPdfTool() {
       {/* Hero Section */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-          Word to PDF
+          PDF to Word
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-          Pro-quality conversion using LibreOffice engine. Supports complex layouts.
+          Convert your PDF to editable Word documents with text extraction.
         </p>
       </div>
 
@@ -192,17 +191,17 @@ export default function WordToPdfTool() {
             </div>
             <div className="space-y-2">
             <p className="text-xl font-semibold text-white">
-                {isDragActive ? "Drop Word file here" : "Select Word file"}
+                {isDragActive ? "Drop PDF file here" : "Select PDF file"}
             </p>
             <p className="text-sm text-slate-500">
-                .docx or .doc files
+                .pdf files only
             </p>
             </div>
             <Button 
             size="lg"
             className="bg-brand-600 hover:bg-brand-500 text-white mt-4 pointer-events-none"
             >
-            Select Word File
+            Select PDF File
             </Button>
           </div>
           {error && (
@@ -222,7 +221,7 @@ export default function WordToPdfTool() {
               {/* File Info */}
               <div className="flex items-center justify-between bg-zinc-950/50 p-4 rounded-xl border border-zinc-800">
                   <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-lg flex items-center justify-center">
+                      <div className="w-12 h-12 bg-red-500/10 text-red-500 rounded-lg flex items-center justify-center">
                           <FileText size={24} />
                       </div>
                       <div>
@@ -250,7 +249,7 @@ export default function WordToPdfTool() {
                         </>
                     ) : (
                         <>
-                            Convert to PDF
+                            Convert to Word
                             <ArrowDown className="ml-3 h-5 w-5" />
                         </>
                     )}
