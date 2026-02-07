@@ -70,9 +70,9 @@ const categories = [
     title: "Convert from PDF",
     tools: [
       { icon: <Image size={24} />, title: "PDF to JPG", desc: "Extract images from your PDF or save each page as a separate image.", href: "/pdf-to-jpg" },
-      { icon: <FileText size={24} />, title: "PDF to Word", desc: "Convert your PDF to WORD documents with incredible accuracy.", href: "/pdf-to-word" },
-      { icon: <Presentation size={24} />, title: "PDF to PowerPoint", desc: "Convert your PDF to POWERPOINT presentations.", href: "/pdf-to-powerpoint" },
-      { icon: <FileSpreadsheet size={24} />, title: "PDF to Excel", desc: "Convert your PDF to EXCEL spreadsheets.", href: "/pdf-to-excel" },
+      { icon: <FileText size={24} />, title: "PDF to Word", desc: "Convert your PDF to WORD documents with incredible accuracy.", comingSoon: true },
+      { icon: <Presentation size={24} />, title: "PDF to PowerPoint", desc: "Convert your PDF to POWERPOINT presentations.", comingSoon: true },
+      { icon: <FileSpreadsheet size={24} />, title: "PDF to Excel", desc: "Convert your PDF to EXCEL spreadsheets.", comingSoon: true },
     ]
   },
   {

@@ -293,7 +293,7 @@ export default function PdfToJpgTool() {
                                             size="sm" 
                                             variant="secondary"
                                             onClick={() => downloadImage(img)}
-                                            className="w-full h-8 text-xs bg-white text-black hover:bg-slate-200"
+                                            className="w-full h-8 text-xs bg-blue-500  text-white hover:bg-blue-400"
                                         >
                                             <Download size={14} className="mr-1" /> Download
                                         </Button>
