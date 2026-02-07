@@ -31,16 +31,15 @@ const itemVariants = {
   }
 };
 
+import { IsometricGrid } from "@/components/ui/isometric-grid";
+
 export default function LandingPage() {
   return (
     <>
       <MaskReveal />
-      <section className="relative pt-32 pb-20 overflow-hidden bg-black">
-        {/* Gradients */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-           <div className="absolute -top-24 left-1/4 w-96 h-96 bg-brand-500/30 rounded-full blur-[100px]" />
-           <div className="absolute top-20 right-1/4 w-72 h-72 bg-purple-500/30 rounded-full blur-[100px]" />
-        </div>
+      <section className="relative pt-32 pb-20 overflow-hidden bg-black min-h-[90vh] flex flex-col justify-center">
+        <IsometricGrid />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black pointer-events-none" /> {/* Fade to black at bottom */}
         <motion.div 
           className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
           initial="hidden"
