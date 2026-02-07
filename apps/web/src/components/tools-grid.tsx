@@ -62,7 +62,7 @@ const categories = [
       { icon: <Image size={24} />, title: "IMG to PDF", desc: "Convert JPG images to PDF in seconds.", href: "/jpg-to-pdf" },
       { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF.", href: "/word-to-pdf" },
       { icon: <Presentation size={24} />, title: "PowerPoint to PDF", desc: "Turn your PPT and PPTX presentations into PDF documents.", href: "/ppt-to-pdf" },
-      { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF.", comingSoon: true },
+      { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF.", href: "/excel-to-pdf" },
       { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents.", comingSoon: true },
     ]
   },
@@ -121,7 +121,7 @@ export function ToolsGrid() {
 
             return (
               <motion.div key={idx} variants={itemVariants} className="space-y-6">
-                <h2 className="text-2xl font-bold text-white pl-2 border-l-4 border-black-500">{category.title}</h2>
+                <h2 className="text-2xl font-bold text-white pl-2 border-l-4 border-zinc-700">{category.title}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {category.tools.map((tool, tIdx) => (
                      <motion.div key={tIdx} whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>

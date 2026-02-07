@@ -47,8 +47,18 @@ const handleConversion = (req: express.Request, res: express.Response) => {
     // --convert-to pdf: Output format
     // --outdir: Output directory
     // -env:UserInstallation: Isolate user profile to allow concurrency
-    const uniqueProfileDir = path.join("/tmp", `LibreOffice_Conversion_${Date.now()}_${Math.random()}`);
-    const command = `soffice -env:UserInstallation=file://${uniqueProfileDir} --headless --convert-to pdf --outdir "${outputDir}" "${inputPath}"`;
+    // -env:UserInstallation: Isolate user profile to allow concurrency
+    const tempDir = require("os").tmpdir();
+    const uniqueProfileDir = path.join(tempDir, `LibreOffice_Conversion_${Date.now()}_${Math.random()}`);
+    
+    // Convert path to file URL (handle Windows backslashes)
+    let profileUrl = uniqueProfileDir.replace(/\\/g, '/');
+    if (!profileUrl.startsWith('/')) {
+        profileUrl = '/' + profileUrl;
+    }
+    profileUrl = 'file://' + profileUrl;
+
+    const command = `soffice -env:UserInstallation="${profileUrl}" --headless --convert-to pdf --outdir "${outputDir}" "${inputPath}"`;
 
     exec(command, (error, stdout, stderr) => {
         // Cleanup temp profile

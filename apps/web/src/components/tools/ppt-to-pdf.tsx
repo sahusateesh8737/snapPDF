@@ -241,6 +241,12 @@ export default function PptToPdfTool() {
                 <p className="text-xs text-slate-500 mt-4">
                     Files are processed securely and deleted immediately after conversion.
                 </p>
+                {error && (
+                    <div className="flex items-center gap-2 text-red-400 justify-center bg-red-950/20 p-3 rounded-lg border border-red-900/50 mt-4">
+                        <AlertCircle size={18} />
+                        <p>{error}</p>
+                    </div>
+                )}
               </div>
 
           </motion.div>
