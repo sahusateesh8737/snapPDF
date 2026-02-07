@@ -1,9 +1,11 @@
 import { Navbar } from "@/components/ui/navbar"
 import { AuthForm } from "@/components/auth-form"
+import { MouseGlow } from "@/components/ui/mouse-glow"
 
 export default function LoginPage() {
   return (
     <div className="relative min-h-screen w-full bg-black selection:bg-brand-500/30 selection:text-brand-200 overflow-hidden">
+      <MouseGlow />
       {/* Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Grid Pattern */}
