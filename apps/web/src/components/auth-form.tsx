@@ -45,7 +45,7 @@ export function AuthForm() {
   }
 
   return (
-    <div className="w-full max-w-md p-8 bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl">
+    <div className="w-full max-w-md p-8 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-white mb-2">
           {isLogin ? "Welcome Back" : "Create Account"}
@@ -65,7 +65,7 @@ export function AuthForm() {
                 name="name"
                 placeholder="John Doe"
                 required
-                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500"
+                className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500 hover:bg-white/10 transition-colors"
               />
             </div>
           )}
@@ -78,7 +78,7 @@ export function AuthForm() {
               type="email"
               placeholder="name@example.com"
               required
-              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500"
+              className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500 hover:bg-white/10 transition-colors"
             />
           </div>
 
@@ -89,7 +89,7 @@ export function AuthForm() {
               name="password"
               type="password"
               required
-              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500"
+              className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus-visible:ring-brand-500 hover:bg-white/10 transition-colors"
             />
           </div>
 
@@ -98,7 +98,7 @@ export function AuthForm() {
           )}
 
           <Button 
-            className="w-full h-11 bg-brand-600 hover:bg-brand-500 text-white font-semibold" 
+            className="w-full h-11 bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-lg shadow-brand-500/20" 
             type="submit"
             disabled={isLoading}
           >
@@ -107,19 +107,16 @@ export function AuthForm() {
           </Button>
         </form>
 
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-zinc-700" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-zinc-900 px-2 text-slate-500">Or continue with</span>
-          </div>
+        <div className="flex items-center gap-4 my-6">
+          <div className="flex-grow h-px bg-white/10" />
+          <span className="text-xs uppercase text-slate-500 font-medium">Or continue with</span>
+          <div className="flex-grow h-px bg-white/10" />
         </div>
 
         <form action={handleGoogleSignIn}>
           <Button 
             variant="outline"
-            className="w-full h-11 bg-white text-black hover:bg-slate-200 border-0 font-medium gap-2"
+            className="w-full h-11 bg-white/5 text-white hover:bg-white/10 border-white/10 font-medium gap-2 transition-colors"
             type="submit"
           >
              <svg className="w-5 h-5" viewBox="0 0 24 24">
