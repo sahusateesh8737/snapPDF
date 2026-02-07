@@ -26,7 +26,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/word-to-pdf", upload.single("file"), (req, res) => {
+// Shared conversion handler
+const handleConversion = (req: express.Request, res: express.Response) => {
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
@@ -55,27 +56,37 @@ router.post("/word-to-pdf", upload.single("file"), (req, res) => {
         // Determine output filename
         // LibreOffice keeps the original filename but changes extension
         const originalName = path.parse(req.file!.filename).name;
-        const outputPath = path.join(outputDir, `${originalName}.pdf`);
-
-        if (fs.existsSync(outputPath)) {
+        // LibreOffice might replace spaces or special chars, but usually it matches
+        // For safety, let's find the created file in the directory
+        const expectedOutputPath = path.join(outputDir, `${originalName}.pdf`);
+        
+        // Fallback: mostly naming is consistent, but if safe filename used, check
+        
+        if (fs.existsSync(expectedOutputPath)) {
             // Send file to client
-            res.download(outputPath, `${originalName}.pdf`, (err) => {
+            res.download(expectedOutputPath, `${originalName}.pdf`, (err) => {
                 // Cleanup files after sending
                 try {
                     fs.unlinkSync(inputPath); // Delete upload
                     // We might not want to delete output immediately if download fails, 
                     // but for now let's cleanup to save space.
-                    // Ideally, use a cron job or delete after callback.
-                    fs.unlinkSync(outputPath); // Delete output
+                    fs.unlinkSync(expectedOutputPath); // Delete output
                 } catch (cleanupErr) {
                     console.error("Cleanup error:", cleanupErr);
                 }
             });
         } else {
+             // Try to find any pdf created in the last few seconds if exact match fails?
+             // For now, return error
             res.status(500).json({ error: "Output file not found" });
         }
     });
-});
+};
+
+// Routes
+router.post("/word-to-pdf", upload.single("file"), handleConversion);
+router.post("/ppt-to-pdf", upload.single("file"), handleConversion);
+router.post("/excel-to-pdf", upload.single("file"), handleConversion);
 
 // PDF to Word
 router.post("/pdf-to-word", upload.single("file"), async (req, res) => {
