@@ -37,7 +37,15 @@ export default function MergePdfTool() {
 
       for (const file of files) {
         const fileBuffer = await file.arrayBuffer();
-        const pdf = await PDFDocument.load(fileBuffer);
+        let pdf;
+        try {
+          pdf = await PDFDocument.load(fileBuffer);
+        } catch (err: any) {
+          if (err.message && err.message.toLowerCase().includes('encrypted')) {
+            throw new Error(`"${file.name}" is encrypted or password-protected. Please unlock it first.`);
+          }
+          throw err;
+        }
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
@@ -56,9 +64,9 @@ export default function MergePdfTool() {
       // Show success modal
       setSuccessInfo({ url, filename });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error merging PDFs:", error);
-      alert("Failed to merge PDFs. Please try again.");
+      alert(error.message || "Failed to merge PDFs. Please try again.");
     } finally {
       setIsProcessing(false);
     }

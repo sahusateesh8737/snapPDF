@@ -83,7 +83,7 @@ const categories = [
       { icon: <Stamp size={24} />, title: "Add Watermark", desc: "Stamp an image or text over your PDF in seconds.", comingSoon: true },
       { icon: <Lock size={24} />, title: "Protect PDF", desc: "Encrypt your PDF with a password.", comingSoon: true },
       { icon: <Unlock size={24} />, title: "Unlock PDF", desc: "Remove PDF password security, so you can use your PDF freely.", comingSoon: true },
-      { icon: <Search size={24} />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", comingSoon: true },
+      { icon: <Search size={24} />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", href: "/ocr-pdf" },
       { icon: <FileCheck size={24} />, title: "Sign PDF", desc: "Sign yourself or request electronic signatures from others.", comingSoon: true },
     ]
   }

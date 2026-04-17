@@ -48,3 +48,9 @@ jobs:
       
       - name: Build
         run: pnpm build
+
+      - name: Run Lighthouse CI
+        run: pnpm lhci autorun
+        env:
+          LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_TOKEN }}
+      

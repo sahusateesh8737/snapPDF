@@ -82,7 +82,7 @@ export default function LandingPage() {
             { icon: <Zap />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", variant: "green", href: "/compress-pdf" },
             { icon: <Repeat />, title: "Convert PDF", desc: "Convert your PDFs to Word, Excel, PowerPoint reliably.", variant: "orange", href: "/convert-pdf", comingSoon: true },
             { icon: <Shield />, title: "Protect PDF", desc: "Encrypt your PDF with a password to keep data confidential.", variant: "default", href: "/protect-pdf", comingSoon: true },
-            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf", comingSoon: true }
+            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf" }
           ].map((feature, idx) => (
              <motion.div key={idx} variants={itemVariants}>
                <Link href={feature.href ?? "#"}>
