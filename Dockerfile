@@ -1,7 +1,8 @@
 FROM node:20-slim
 
-# Install LibreOffice and fonts
+# Install LibreOffice, fonts, and tini init system
 RUN apt-get update && apt-get install -y \
+    tini \
     libreoffice \
     unoconv \
     libreoffice-script-provider-python \
@@ -48,6 +49,13 @@ RUN mkdir -p obs/uploads && mkdir -p obs/outputs
 
 # Expose port
 EXPOSE 4000
+
+# Set environment variables for writable LibreOffice configuration
+ENV HOME=/tmp
+ENV XDG_CONFIG_HOME=/tmp
+
+# Use Tini to manage background processes and handle signals
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Make sure the startup script is executable
 RUN chmod +x scripts/start-container.sh
