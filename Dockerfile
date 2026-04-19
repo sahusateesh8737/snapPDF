@@ -3,6 +3,8 @@ FROM node:20-slim
 # Install LibreOffice and fonts
 RUN apt-get update && apt-get install -y \
     libreoffice \
+    unoconv \
+    libreoffice-script-provider-python \
     fonts-opensymbol \
     hyphen-fr \
     hyphen-de \
@@ -47,6 +49,8 @@ RUN mkdir -p obs/uploads && mkdir -p obs/outputs
 # Expose port
 EXPOSE 4000
 
-# Start command
-# We use pnpm to start the api workspace
-CMD ["pnpm", "--filter", "api", "start"]
+# Make sure the startup script is executable
+RUN chmod +x scripts/start-container.sh
+
+# Start command using our optimized listener script
+CMD ["./scripts/start-container.sh"]

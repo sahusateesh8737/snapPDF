@@ -46,62 +46,45 @@ const handleConversion = (req: express.Request, res: express.Response) => {
     // --headless: Runs without GUI
     // --convert-to pdf: Output format
     // --outdir: Output directory
-    // -env:UserInstallation: Isolate user profile to allow concurrency
-    // -env:UserInstallation: Isolate user profile to allow concurrency
-    const tempDir = require("os").tmpdir();
-    const uniqueProfileDir = path.join(tempDir, `LibreOffice_Conversion_${Date.now()}_${Math.random()}`);
-    
-    // Convert path to file URL (handle Windows backslashes)
-    let profileUrl = uniqueProfileDir.replace(/\\/g, '/');
-    if (!profileUrl.startsWith('/')) {
-        profileUrl = '/' + profileUrl;
-    }
-    profileUrl = 'file://' + profileUrl;
+    // Performance Optimization: Use unoconv to talk to the warm listener on port 2002
+    // This is much faster than starting a fresh soffice instance
+    // Determine output filename
+    const originalName = path.parse(req.file!.filename).name;
+    const expectedOutputPath = path.join(outputDir, `${originalName}.pdf`);
 
-    const command = `soffice -env:UserInstallation="${profileUrl}" --headless --convert-to pdf --outdir "${outputDir}" "${inputPath}"`;
+    // Performance Optimization: Use unoconv to talk to the warm listener on port 2002
+    // Explicitly set the output filename to ensure unoconv puts it exactly where we expect
+    const command = `unoconv --port 2002 -f pdf -o "${expectedOutputPath}" "${inputPath}"`;
 
-    exec(command, (error, stdout, stderr) => {
-        // Cleanup temp profile
-        try {
-            fs.rmSync(uniqueProfileDir, { recursive: true, force: true });
-        } catch (e) {
-            console.error("Error cleaning up profile:", e);
-        }
+    console.log(`Executing conversion: ${command}`);
 
-        if (error) {
-            console.error("Conversion error:", error);
-            console.error("Stderr:", stderr);
-            return res.status(500).json({ error: "Conversion failed", details: stderr });
-        }
-
-        // Determine output filename
-        // LibreOffice keeps the original filename but changes extension
-        const originalName = path.parse(req.file!.filename).name;
-        // LibreOffice might replace spaces or special chars, but usually it matches
-        // For safety, let's find the created file in the directory
-        const expectedOutputPath = path.join(outputDir, `${originalName}.pdf`);
-        
-        // Fallback: mostly naming is consistent, but if safe filename used, check
-        
-        if (fs.existsSync(expectedOutputPath)) {
-            // Send file to client
-            res.download(expectedOutputPath, `${originalName}.pdf`, (err) => {
-                // Cleanup files after sending
-                try {
-                    fs.unlinkSync(inputPath); // Delete upload
-                    // We might not want to delete output immediately if download fails, 
-                    // but for now let's cleanup to save space.
-                    fs.unlinkSync(expectedOutputPath); // Delete output
-                } catch (cleanupErr) {
-                    console.error("Cleanup error:", cleanupErr);
-                }
+    exec(command, { timeout: 15000 }, (error, stdout, stderr) => {
+        if (error || !fs.existsSync(expectedOutputPath)) {
+            console.error("Conversion Failure Details:");
+            console.error("- Error:", error);
+            console.error("- Stdout:", stdout);
+            console.error("- Stderr:", stderr);
+            console.error("- Expected Path:", expectedOutputPath);
+            console.error("- Path Exists:", fs.existsSync(expectedOutputPath));
+            
+            return res.status(500).json({ 
+                error: "Conversion failed", 
+                details: stderr || "Output file not found after command execution" 
             });
-        } else {
-             // Try to find any pdf created in the last few seconds if exact match fails?
-             // For now, return error
-            res.status(500).json({ error: "Output file not found" });
         }
+
+        // Send file to client
+        res.download(expectedOutputPath, `${originalName}.pdf`, (err) => {
+            // Cleanup files after sending
+            try {
+                if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
+                if (fs.existsSync(expectedOutputPath)) fs.unlinkSync(expectedOutputPath);
+            } catch (cleanupErr) {
+                console.error("Cleanup error:", cleanupErr);
+            }
+        });
     });
+
 };
 
 // Routes

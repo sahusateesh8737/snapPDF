@@ -40,3 +40,7 @@ next-env.d.ts
 
 # Turbo
 .turbo
+
+# Temporary Storage
+obs/
+.lighthouseci/
