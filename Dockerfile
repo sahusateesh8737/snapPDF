@@ -4,8 +4,8 @@ FROM node:20-slim
 RUN apt-get update && apt-get install -y \
     tini \
     libreoffice \
-    unoconv \
-    libreoffice-script-provider-python \
+    python3-pip \
+    python3-venv \
     fonts-opensymbol \
     hyphen-fr \
     hyphen-de \
@@ -26,8 +26,13 @@ RUN apt-get update && apt-get install -y \
     fonts-sil-gentium \
     fonts-texgyre \
     fonts-tlwg-purisa \
-    python3 \
     && rm -rf /var/lib/apt/lists/*
+
+# Setup virtual environment and install unoserver to replace unoconv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip install unoserver
 
 # Install PNPM
 RUN npm install -g pnpm

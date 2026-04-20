@@ -52,13 +52,14 @@ const handleConversion = (req: express.Request, res: express.Response) => {
     const originalName = path.parse(req.file!.filename).name;
     const expectedOutputPath = path.join(outputDir, `${originalName}.pdf`);
 
-    // Performance Optimization: Use unoconv to talk to the warm listener on port 2002
-    // Explicitly set the output filename to ensure unoconv puts it exactly where we expect
-    const command = `unoconv --port 2002 -f pdf -o "${expectedOutputPath}" "${inputPath}"`;
+    // Performance Optimization: Use unoserver (via unoconvert) which manages the daemon
+    // Explicitly set the input and output filenames
+    const command = `unoconvert "${inputPath}" "${expectedOutputPath}"`;
 
     console.log(`Executing conversion: ${command}`);
 
-    exec(command, { timeout: 15000 }, (error, stdout, stderr) => {
+    // Increased timeout to 60000ms (60s) for slower CPU tiers on cloud platforms
+    exec(command, { timeout: 60000 }, (error, stdout, stderr) => {
         if (error || !fs.existsSync(expectedOutputPath)) {
             console.error("Conversion Failure Details:");
             console.error("- Error:", error);
