@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -23,4 +23,4 @@ RUN pnpm run build --filter api
 EXPOSE 4000
 
 # Start the application
-CMD ["pnpm", "run", "start", "--filter", "api"]
+CMD ["node", "apps/api/dist/index.js"]
