@@ -63,7 +63,7 @@ const categories = [
       { icon: <FileText size={24} />, title: "Word to PDF", desc: "Make DOC and DOCX files easy to read by converting them to PDF.", href: "/word-to-pdf" },
       { icon: <Presentation size={24} />, title: "PowerPoint to PDF", desc: "Turn your PPT and PPTX presentations into PDF documents.", href: "/ppt-to-pdf" },
       { icon: <FileSpreadsheet size={24} />, title: "Excel to PDF", desc: "Make EXCEL spreadsheets easy to read by converting them to PDF.", href: "/excel-to-pdf" },
-      { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents.", comingSoon: true },
+      { icon: <Globe size={24} />, title: "HTML to PDF", desc: "Convert webpages to PDF documents.", href: "/html-to-pdf" },
     ]
   },
   {

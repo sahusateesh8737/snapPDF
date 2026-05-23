@@ -108,6 +108,7 @@ const handleConversion = (req: express.Request, res: express.Response) => {
 router.post("/word-to-pdf", upload.single("file"), handleConversion);
 router.post("/ppt-to-pdf", upload.single("file"), handleConversion);
 router.post("/excel-to-pdf", upload.single("file"), handleConversion);
+router.post("/html-to-pdf", upload.single("file"), handleConversion);
 
 // PDF to Word
 router.post("/pdf-to-word", upload.single("file"), async (req, res) => {

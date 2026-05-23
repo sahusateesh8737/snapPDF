@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "@/components/ui/feature-card";
-import { FileUp, Search, Zap, Shield, Merge, Scissors, Repeat, MousePointerClick, Cpu, Download } from "lucide-react";
+import { FileUp, Search, Zap, Shield, Merge, Scissors, Repeat, MousePointerClick, Cpu, Download, FileCode } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MaskReveal } from "@/components/ui/mask-reveal";
@@ -82,7 +82,8 @@ export default function LandingPage() {
             { icon: <Zap />, title: "Compress PDF", desc: "Reduce file size while optimizing for maximal PDF quality.", variant: "green", href: "/compress-pdf" },
             { icon: <Repeat />, title: "Convert PDF", desc: "Convert your PDFs to Word, Excel, PowerPoint reliably.", variant: "orange", href: "/convert-pdf", comingSoon: true },
             { icon: <Shield />, title: "Protect PDF", desc: "Encrypt your PDF with a password to keep data confidential.", variant: "default", href: "/protect-pdf", comingSoon: true },
-            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf" }
+            { icon: <Search />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", variant: "default", href: "/ocr-pdf" },
+            { icon: <FileCode />, title: "HTML to PDF", desc: "Convert your HTML documents to high-quality PDF files.", variant: "blue", href: "/html-to-pdf" }
           ].map((feature, idx) => (
              <motion.div key={idx} variants={itemVariants}>
                <Link href={feature.href ?? "#"}>

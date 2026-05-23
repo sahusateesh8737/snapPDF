@@ -40,3 +40,4 @@ next-env.d.ts
 
 # Turbo
 .turbo
+update_env.sh
