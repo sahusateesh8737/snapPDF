@@ -2,7 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install pnpm
+# Install pnpm and libreoffice for document conversion
+RUN apk add --no-cache libreoffice font-liberation ttf-dejavu
 RUN npm install -g pnpm
 
 # Copy root package.json and workspace configuration
