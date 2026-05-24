@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
-  title: "PDF Utility",
+  title: "snapPDF",
   description: "All-in-one PDF tools",
 };
 
