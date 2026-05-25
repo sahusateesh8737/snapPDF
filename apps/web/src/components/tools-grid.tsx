@@ -78,9 +78,9 @@ const categories = [
   {
     title: "Edit & Security",
     tools: [
-      { icon: <RotateCw size={24} />, title: "Rotate PDF", desc: "Rotate your PDF files as you want. Rotate multiple PDF at same time.", comingSoon: true },
-      { icon: <Hash size={24} />, title: "Add Page Numbers", desc: "Add page numbers into PDFs with ease.", comingSoon: true },
-      { icon: <Stamp size={24} />, title: "Add Watermark", desc: "Stamp an image or text over your PDF in seconds.", comingSoon: true },
+      { icon: <RotateCw size={24} />, title: "Rotate PDF", desc: "Rotate your PDF files as you want. Rotate multiple PDF at same time.", href: "/rotate-pdf" },
+      { icon: <Hash size={24} />, title: "Add Page Numbers", desc: "Add page numbers into PDFs with ease.", href: "/add-page-numbers" },
+      { icon: <Stamp size={24} />, title: "Add Watermark", desc: "Stamp an image or text over your PDF in seconds.", href: "/add-watermark" },
       { icon: <Lock size={24} />, title: "Protect PDF", desc: "Encrypt your PDF with a password.", comingSoon: true },
       { icon: <Unlock size={24} />, title: "Unlock PDF", desc: "Remove PDF password security, so you can use your PDF freely.", comingSoon: true },
       { icon: <Search size={24} />, title: "OCR PDF", desc: "Make scanned documents searchable with advanced OCR.", href: "/ocr-pdf" },
