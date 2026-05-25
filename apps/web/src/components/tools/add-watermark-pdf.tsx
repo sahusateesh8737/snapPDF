@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
+import { PDFDocument, StandardFonts, rgb, degrees, PDFFont, PDFImage } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Stamp, Loader2, FileText, ArrowDown, CheckCircle, RefreshCcw, Download, Image as ImageIcon, Type } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -80,8 +80,8 @@ export default function AddWatermarkTool() {
       const pdfDoc = await PDFDocument.load(arrayBuffer);
       const pages = pdfDoc.getPages();
 
-      let helveticaFont;
-      let imageObj;
+      let helveticaFont: PDFFont | undefined;
+      let imageObj: PDFImage | undefined;
       let imgDims = { width: 0, height: 0 };
 
       // Pre-load resources depending on type

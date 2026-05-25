@@ -275,8 +275,7 @@ export default function RotatePdfTool() {
                             {/* Hover Overlay Button */}
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
                                 <Button 
-                                    size="icon" 
-                                    className="h-12 w-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-xl scale-90 group-hover:scale-100 transition-transform"
+                                    className="h-12 w-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-xl scale-90 group-hover:scale-100 transition-transform p-0 flex items-center justify-center"
                                     onClick={() => rotatePage(index)}
                                 >
                                     <RotateCw size={24} />
