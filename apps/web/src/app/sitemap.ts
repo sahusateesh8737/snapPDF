@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
  
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.snappdf.shop';
+  const baseUrl = 'https://snappdf.shop';
 
   // List of active routes based on the tools-grid configuration
   const routes = [

@@ -3,7 +3,7 @@ import AddWatermarkTool from "@/components/tools/add-watermark-pdf";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Add Watermark - snapPDF",
+  title: "Add Watermark",
   description: "Stamp an image or text over your PDF in seconds securely in your browser.",
 };
 

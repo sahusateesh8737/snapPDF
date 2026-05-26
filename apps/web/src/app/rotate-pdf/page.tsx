@@ -3,7 +3,7 @@ import RotatePdfTool from "@/components/tools/rotate-pdf";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Rotate PDF - snapPDF",
+  title: "Rotate PDF",
   description: "Rotate your PDF files as you want securely in your browser.",
 };
 

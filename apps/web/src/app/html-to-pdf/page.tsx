@@ -1,5 +1,11 @@
 import { Navbar } from "@/components/ui/navbar";
 import HtmlToPdfTool from "@/components/tools/html-to-pdf";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "HTML to PDF",
+  description: "Convert webpages to PDF documents easily and securely.",
+};
 
 export default function HtmlToPdfPage() {
   return (

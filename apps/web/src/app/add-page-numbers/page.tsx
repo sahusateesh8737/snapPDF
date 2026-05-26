@@ -3,7 +3,7 @@ import AddPageNumbersTool from "@/components/tools/add-page-numbers-pdf";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Add Page Numbers - snapPDF",
+  title: "Add Page Numbers",
   description: "Add custom page numbers to your PDF securely in your browser.",
 };
 

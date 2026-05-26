@@ -1,5 +1,11 @@
 import { Navbar } from "@/components/ui/navbar";
 import CompressPdfTool from "@/components/tools/compress-pdf";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Compress PDF",
+  description: "Reduce file size while optimizing for maximal PDF quality.",
+};
 
 export default function CompressPdfPage() {
   return (
